@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
 * {
   box-sizing: border-box;
 }
 
 html {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -13,7 +13,7 @@ body {
   background: linear-gradient(#f0f6f8, #e0e1e7);
 }
 
-main {
+section {
   width: 90%;
   max-width: 40rem;
   margin: 3rem auto;
@@ -30,12 +30,6 @@ header {
   gap: 1.5rem;
   justify-content: center;
   align-items: center;
-}
-
-img {
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
 }
 
 header h1 {
@@ -85,7 +79,7 @@ ul {
   padding: 0;
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 }
 
 li {
@@ -137,7 +131,7 @@ li button:hover {
 
 .infobox-hint {
   border: 1px solid #96f5f7;
-  color: #96f5f7;
+  color: #1ce0e4;
 }
 
 .infobox-warning.warning--low {

@@ -1,40 +1,60 @@
-import { useState } from 'react';
+import { useEffect, useState } from "react";
 
-import CourseGoalList from './components/CourseGoalList.tsx';
-import Header from './components/Header.tsx';
-import NewGoal from './components/NewGoal.tsx';
-import goalsImg from './assets/goals.jpg';
+import CourseGoalList from "./components/CourseGoalList.tsx";
+import Header from "./components/Header.tsx";
+import NewGoal from "./components/NewGoal.tsx";
 
 export type CourseGoal = {
   title: string;
   description: string;
   id: number;
+  type: "Work" | "Study" | "Personal";
 };
 
 export default function App() {
   const [goals, setGoals] = useState<CourseGoal[]>([]);
 
-  function handleAddGoal(goal: string, summary: string) {
+  useEffect(() => {
+    const savedGoals = JSON.parse(localStorage.getItem("goals") || "[]");
+    setGoals(savedGoals);
+  }, []);
+
+  function handleAddGoal(
+    goal: string,
+    summary: string,
+    type: "Work" | "Study" | "Personal"
+  ) {
+    const newGoal: CourseGoal = {
+      id: Math.random(),
+      title: goal,
+      description: summary,
+      type,
+    };
+
     setGoals((prevGoals) => {
-      const newGoal: CourseGoal = {
-        id: Math.random(),
-        title: goal,
-        description: summary,
-      };
-      return [...prevGoals, newGoal];
+      const updatedGoals = [...prevGoals, newGoal];
+      localStorage.setItem("goals", JSON.stringify(updatedGoals));
+      return updatedGoals;
     });
   }
 
   function handleDeleteGoal(id: number) {
-    setGoals((prevGoals) => prevGoals.filter((goal) => goal.id !== id));
+    setGoals((prevGoals) => {
+      const updatedGoals = prevGoals.filter((goal) => goal.id !== id);
+      localStorage.setItem("goals", JSON.stringify(updatedGoals));
+      return updatedGoals;
+    });
   }
 
   return (
     <main>
-      <Header image={{ src: goalsImg, alt: 'A list of goals' }}>
-        <h1>Your Course Goals</h1>
-      </Header>
-      <NewGoal onAddGoal={handleAddGoal} />
+      <section>
+        <Header>
+          <h1>Your Course Goals</h1>
+        </Header>
+        <NewGoal onAddGoal={handleAddGoal} />
+      </section>
+
       <CourseGoalList goals={goals} onDeleteGoal={handleDeleteGoal} />
     </main>
   );
