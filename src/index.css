@@ -46,7 +46,9 @@ label {
   color: #dfd9be;
 }
 
-input {
+input,
+select,
+option {
   font: inherit;
   width: 100%;
   padding: 0.5rem;
@@ -55,12 +57,13 @@ input {
   border-radius: 4px;
 }
 
-form button {
+form button,
+.btn-filter {
   display: block;
   width: 100%;
   padding: 0.75rem;
   margin-top: 1rem;
-  background-color: #f7e596;
+  background-color: #f9e175;
   border: none;
   border-radius: 4px;
   font: inherit;
@@ -76,14 +79,14 @@ form button:hover {
 ul {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding-top: 16px;
+  padding-left: 0;
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 }
 
 li {
-  background-color: #475357;
   padding: 1rem;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
@@ -98,13 +101,25 @@ li article {
 li h2 {
   margin: 0;
   font-size: 1.25rem;
-  color: #b1c1c3;
+  color: #3a4346;
+  text-wrap: pretty;
+  max-width: 100%;
 }
 
 li p {
   margin: 0;
   font-size: 0.85rem;
-  color: #dfd9be;
+  color: #325346;
+  text-wrap: pretty;
+  max-width: 100%;
+}
+
+li div {
+  min-width: 0;
+  flex-grow: 1;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 li button {
@@ -112,12 +127,12 @@ li button {
   padding: 0 0.5rem;
   background: transparent;
   border: none;
-  color: #909a9a;
+  color: #bf3131;
   cursor: pointer;
 }
 
 li button:hover {
-  color: #f9a73b;
+  color: #7d0a0a;
 }
 
 .infobox {
@@ -147,4 +162,72 @@ li button:hover {
 .infobox-warning.warning--high {
   border: 1px solid #f97373;
   color: #f97373;
+}
+
+.goal-item-personal {
+  background-color: #cdc1ff;
+}
+
+.goal-item-work {
+  background-color: #c6e7ff;
+}
+
+.goal-item-study {
+  background-color: #fff5cd;
+}
+
+.filter {
+  background-color: #3a4346;
+  color: #f0f6f8;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+.close-btn {
+  font-size: 1.75rem;
+  background: transparent;
+  border-color: transparent;
+  cursor: pointer;
+  margin-top: 0.2rem;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #3a4346;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  color: #f0f6f8;
+  z-index: 1000;
+}
+.show-sidebar {
+  transform: translate(0);
+}
+
+.form-search {
+  padding: 2rem;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}
+@media (max-width: 676px) {
+  .sidebar {
+    width: 100%;
+  }
 }

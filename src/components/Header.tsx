@@ -1,13 +1,9 @@
-import { type ReactNode } from 'react';
+import { type ReactNode } from "react";
 
 type HeaderProps = {
-  children: ReactNode
+  children: ReactNode;
 };
 
-export default function Header({children}: HeaderProps) {
-  return (
-    <header>
-      {children}
-    </header>
-  );
+export default function Header({ children }: HeaderProps) {
+  return <header>{children}</header>;
 }

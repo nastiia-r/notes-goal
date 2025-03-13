@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import CourseGoalList from "./components/CourseGoalList.tsx";
 import Header from "./components/Header.tsx";
 import NewGoal from "./components/NewGoal.tsx";
+import Sidebar from "./components/SidebarFilter.tsx";
+import { useGlobalContext } from "./components/Context.tsx";
 
 export type CourseGoal = {
   title: string;
@@ -46,6 +48,29 @@ export default function App() {
     });
   }
 
+  const [filter, setFilter] = useState<{
+    title: string;
+    type: Set<"Work" | "Study" | "Personal">;
+  }>({ title: "", type: new Set() });
+  const { showSidebar } = useGlobalContext();
+  let filteredGoal = goals.filter(
+    (goal) =>
+      (filter.title === "" ||
+        goal.title.toLowerCase().includes(filter.title.toLowerCase())) &&
+      (filter.type.size === 0 || filter.type.has(goal.type))
+  );
+
+  function handleFilter(
+    title: string,
+    type: Set<"Work" | "Study" | "Personal">
+  ) {
+    setFilter((prev) => ({
+      ...prev,
+      title,
+      type,
+    }));
+  }
+
   return (
     <main>
       <section>
@@ -54,8 +79,12 @@ export default function App() {
         </Header>
         <NewGoal onAddGoal={handleAddGoal} />
       </section>
+      <button className="btn-filter" onClick={showSidebar}>
+        Filter
+      </button>
 
-      <CourseGoalList goals={goals} onDeleteGoal={handleDeleteGoal} />
+      <Sidebar onFilterGoal={handleFilter} />
+      <CourseGoalList goals={filteredGoal} onDeleteGoal={handleDeleteGoal} />
     </main>
   );
 }

@@ -35,11 +35,15 @@ export default function CourseGoalList({
       {warningBox}
       <ul>
         {goals.map((goal) => (
-          <li key={goal.id}>
-            <CourseGoal id={goal.id} title={goal.title} onDelete={onDeleteGoal}>
-              <p>{goal.description}</p>
-            </CourseGoal>
-          </li>
+          <CourseGoal
+            key={goal.id}
+            id={goal.id}
+            title={goal.title}
+            type={goal.type}
+            onDelete={onDeleteGoal}
+          >
+            <p>{goal.description}</p>
+          </CourseGoal>
         ))}
       </ul>
     </>

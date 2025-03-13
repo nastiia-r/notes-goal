@@ -25,9 +25,10 @@ export default function NewGoal({ onAddGoal }: NewGoalProps) {
     const enteredCategory = selectedCategory as "Work" | "Study" | "Personal";
 
     if (enteredGoal && enteredSummary && enteredCategory) {
-      event.currentTarget.reset();
-      setWarningBox(null);
       onAddGoal(enteredGoal, enteredSummary, enteredCategory);
+      event.currentTarget.reset();
+      setSelectedCategory("Work");
+      setWarningBox(null);
     } else {
       setWarningBox(
         <InfoBox mode="warning" severity="high">
@@ -42,54 +43,29 @@ export default function NewGoal({ onAddGoal }: NewGoalProps) {
       <form onSubmit={handleSubmit}>
         <p>
           <label htmlFor="goal">Your goal</label>
-          <input id="goal" type="text" ref={goal} />
+          <input id="goal" type="text" ref={goal} maxLength={50} />
         </p>
         <p>
           <label htmlFor="summary">Short summary</label>
-          <input id="summary" type="text" ref={summary} />
+          <input id="summary" type="text" ref={summary} maxLength={100} />
         </p>
         <p>
-          <label htmlFor="work">Work</label>
-          <input
-            type="radio"
-            name="category"
-            value="Work"
-            checked={selectedCategory === "Work"}
-            onChange={(type) =>
+          <label htmlFor="category">Category</label>
+          <select
+            id="category"
+            value={selectedCategory}
+            onChange={(e) =>
               setSelectedCategory(
-                type.target.value as "Work" | "Study" | "Personal"
+                e.target.value as "Work" | "Study" | "Personal"
               )
             }
-          />
+          >
+            <option value="Work">Work</option>
+            <option value="Study">Study</option>
+            <option value="Personal">Personal</option>
+          </select>
         </p>
-        <p>
-          <label htmlFor="study">Stydy</label>
-          <input
-            type="radio"
-            name="category"
-            value="Study"
-            checked={selectedCategory === "Study"}
-            onChange={(type) =>
-              setSelectedCategory(
-                type.target.value as "Work" | "Study" | "Personal"
-              )
-            }
-          />
-        </p>
-        <p>
-          <label htmlFor="personal">Personal</label>
-          <input
-            type="radio"
-            name="category"
-            value="Personal"
-            checked={selectedCategory === "Personal"}
-            onChange={(type) =>
-              setSelectedCategory(
-                type.target.value as "Work" | "Study" | "Personal"
-              )
-            }
-          />
-        </p>
+
         <p>
           <button>Add Goal</button>
         </p>
